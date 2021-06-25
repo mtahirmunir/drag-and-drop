@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import App2 from './App2';
+
 const itemsFromBackend = [
-  { id: '1', content: 'Dragable item One' },
-  { id: '2', content: 'Dragable item Two' },
-  { id: '3', content: 'Dragable item Three' },
-  { id: '4', content: 'Dragable item Four' },
+  { id: '8', content: 'Inner dragable item One' },
+  { id: '9', content: 'Inner dragable item Two' },
 ];
 
 const columnsFromBackend = {
-  ['droppable one']: {
-    name: 'Droppable One',
+  ['inner droppable']: {
+    name: 'Inner Droppable',
     items: itemsFromBackend,
-  },
-  ['droppable two']: {
-    name: 'Droppable Two',
-    items: [],
   },
 };
 
@@ -62,7 +56,7 @@ const onDragEnd = (result, columns, setColumns) => {
   }
 };
 
-function App() {
+function App2() {
   const [columns, setColumns] = useState(columnsFromBackend);
   return (
     <div style={{ display: 'flex', justifyContent: 'center', height: '100%' }}>
@@ -80,7 +74,7 @@ function App() {
               key={columnId}
             >
               <h2>{column.name}</h2>
-              <div style={{ margin: 8, marginLeft: '50px' }}>
+              <div style={{ margin: 8 }}>
                 <Droppable droppableId={columnId} key={columnId}>
                   {(provided, snapshot) => {
                     return (
@@ -89,11 +83,11 @@ function App() {
                         ref={provided.innerRef}
                         style={{
                           background: snapshot.isDraggingOver
-                            ? 'lightblue'
-                            : 'lightgrey',
+                            ? 'black'
+                            : '#1c1c',
                           padding: 4,
-                          width: 250,
-                          minHeight: 500,
+                          width: 200,
+                          // minHeight: 300,
                         }}
                       >
                         {column.items.map((item, index) => {
@@ -113,7 +107,7 @@ function App() {
                                       userSelect: 'none',
                                       padding: 16,
                                       margin: '0 0 8px 0',
-                                      minHeight: '40px',
+                                      minHeight: '50px',
                                       backgroundColor: snapshot.isDragging
                                         ? '#263B4A'
                                         : '#456C86',
@@ -122,9 +116,6 @@ function App() {
                                     }}
                                   >
                                     {item.content}
-                                    {item.content === 'Dragable item Two' && (
-                                      <App2 />
-                                    )}
                                   </div>
                                 );
                               }}
@@ -145,4 +136,4 @@ function App() {
   );
 }
 
-export default App;
+export default App2;
